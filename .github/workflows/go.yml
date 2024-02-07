@@ -31,6 +31,6 @@ jobs:
       run: make test
 
     - name: Build
-      if: steps.test.outcome == 'success'
+      if: ${{ success }}
       run: make build
   

@@ -30,6 +30,5 @@ jobs:
       run: make test
 
     - name: Build
-      if: ${{ success() }}
       run: make build
   

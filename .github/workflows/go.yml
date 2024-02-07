@@ -28,4 +28,7 @@ jobs:
     - name: Test
       run: make test
 
+    - name: Build
+      if: steps.build.outcome == 'success'
+      run: make build
   

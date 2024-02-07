@@ -22,12 +22,6 @@ jobs:
     - name: Install golint
       run: go install golang.org/x/lint/golint
 
-    - name: Dependency
-      run: make dep
-      
-    - name: Build
-      run: make build
-
     - name: Lint
       run: make lint
 

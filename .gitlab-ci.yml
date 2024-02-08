@@ -1,0 +1,15 @@
+image: ubuntu:latest
+
+stages:
+    - lint
+    - test
+
+lint:
+  stage: lint
+  script:
+    - make lint
+
+test:
+  stage: test
+  script:
+      - make test

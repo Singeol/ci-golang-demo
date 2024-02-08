@@ -57,6 +57,7 @@ jobs:
       - name: Get Branch
         run: |
           echo ${GITHUB_REF}
+          echo $(git branch --contains)
           echo $(git branch --show-current)
           echo "BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
       - name: Get short SHA

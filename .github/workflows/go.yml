@@ -54,8 +54,12 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v4
-      - name: Print Branch name
-        run: echo ${GITHUB_REF#refs/heads/}
+      - name: Get Branch
+        run: |
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw/origin\/}
+          echo ::set-env name=BRANCH::$branch
+      - run: echo ${{ env.BRANCH }}
       - name: Print tag
         run: echo ${GITHUB_REF#refs/tags/}
       # -

@@ -55,7 +55,7 @@ jobs:
       - name: checkout source code
         uses: actions/checkout@v4
       - name: Print Branch name
-        run: echo ${GITHUB_REF#refs/heads}
+        run: echo ${GITHUB_REF#refs/heads/}
       - name: Print tag
         run: echo ${GITHUB_REF#refs/tags/}
       # -

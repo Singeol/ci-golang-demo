@@ -17,10 +17,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version: '1.20'
 
@@ -34,10 +34,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version: '1.20'
 
@@ -58,6 +58,8 @@ jobs:
         run: echo "GIT_VER=${GITHUB_REF##*/}" >>  $GITHUB_ENV
       - name: Print Branch
         run: echo ${{ env.GITHUB_ENV }}
+      - name: Print tag
+        run: echo ${GITHUB_REF#refs/tags/}
       # -
       #   name: Set up QEMU
       #   uses: docker/setup-qemu-action@v3

@@ -43,8 +43,8 @@ jobs:
   build:
     needs: ["lint", "test"]
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
     steps:
+      - run: echo "${{github.ref}}"
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3

@@ -54,14 +54,10 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v4
-      - name: Get Branch
-        run: |
-          echo ${GITHUB_REF}
-          echo $(git branch --contains)
-          echo $(git branch --show-current)
-          echo "BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
       - name: Get short SHA
         run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+      - name: Get Branch
+        run: echo $(git branch --contains ${{env.SHORT_SHA}})
       - name: Get push tag
         run: |
           echo ${GITHUB_REF#refs/tags/}

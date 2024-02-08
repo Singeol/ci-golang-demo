@@ -59,7 +59,8 @@ jobs:
       - name: Get push tag
         run: |
           echo "GIT_VER=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV 
-          echo ${{ env.GIT_VER }}
+      - name: 
+        run: echo ${{ env.GIT_VER }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx

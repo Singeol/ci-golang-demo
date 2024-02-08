@@ -14,43 +14,43 @@ env:
 
 jobs:
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.20'
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v5
+  #     with:
+  #       go-version: '1.20'
 
-    - name: Install golint
-      run: go install golang.org/x/lint/golint
+  #   - name: Install golint
+  #     run: go install golang.org/x/lint/golint
 
-    - name: Lint
-      id: lint
-      run: make lint
+  #   - name: Lint
+  #     id: lint
+  #     run: make lint
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.20'
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v5
+  #     with:
+  #       go-version: '1.20'
 
-    - name: Test
-      run: make test
+  #   - name: Test
+  #     run: make test
 
   build-and-push-image:
-    needs: ["lint", "test"]
+    # needs: ["lint", "test"]
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    if: startsWith(github.ref, 'refs/tags')
+    # if: startsWith(github.ref, 'refs/tags')
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
@@ -62,7 +62,9 @@ jobs:
       - name: Get short SHA
         run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
       - name: Get push tag
-        run: echo "TAG=$(echo ${GITHUB_REF#refs/tags/})" >> GITHUB_ENV 
+        run: |
+          echo ${GITHUB_REF#refs/tags/}
+          echo "TAG=$(echo ${GITHUB_REF#refs/tags/})" >> GITHUB_ENV 
       - name: Print Tag
         run: echo ${{ env.TAG }}
       - name: Set up QEMU

@@ -21,6 +21,7 @@ test:
     - make test
 
 build:
+  stage: build
   image: golang:alpine
   needs:
     - lint

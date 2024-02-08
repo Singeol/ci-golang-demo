@@ -59,6 +59,8 @@ jobs:
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw##*/}
           echo "BRANCH=$branch" >> $GITHUB_ENV
+      - name: Get short SHA
+        run: echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx
@@ -79,6 +81,6 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{env.BRANCH}}-$(echo ${GITHUB_SHA::7}),$(echo ${GITHUB_REF#refs/tags/})
+          tags: ${{env.BRANCH}}-${{ env.SHORT_RSA}},$(echo ${GITHUB_REF#refs/tags/})
           labels: ${{ steps.meta.outputs.labels }}, 
   

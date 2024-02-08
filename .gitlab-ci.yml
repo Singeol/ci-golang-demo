@@ -6,7 +6,7 @@ stages:
 lint:
   image: golang:alpine
   stage: lint
-  beforescript:
+  before_script:
     - apk add --no-cache make
     - go install golang.org/x/lint/golint
   script:

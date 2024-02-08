@@ -60,7 +60,7 @@ jobs:
           branch=${raw##*/}
           echo "BRANCH=$branch" >> $GITHUB_ENV
       - name: Get short SHA
-        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $env:GITHUB_ENV
+        run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx

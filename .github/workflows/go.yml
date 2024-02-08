@@ -57,10 +57,7 @@ jobs:
       - name: Get Branch
         run: echo "GIT_VER=${GITHUB_REF##*/}" >>  $GITHUB_ENV
       - name: Print Branch
-        run: |
-          tag=${{  github.ref_name }}
-          branch=$(git branch --contains=$tag head -n1 cut -c3-)
-          echo $branch
+        run: echo ${{ env.GIT_VER}}
       - name: Print tag
         run: echo ${GITHUB_REF#refs/tags/}
       # -

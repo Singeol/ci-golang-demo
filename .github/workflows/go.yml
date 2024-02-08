@@ -43,6 +43,7 @@ jobs:
     needs: ["lint", "test"]
     runs-on: ubuntu-latest
     steps:
+      - run: echo ' ${{github}}'
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3

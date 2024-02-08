@@ -1,16 +1,17 @@
-image: golang:latest
-
 stages:
     - lint
     - test
 
 lint:
+  image: golang:alpine
   stage: lint
   script:
+    - apk add --no-cache make
     - go install golang.org/x/lint/golint
     - make lint
 
 test:
+  image: image: golang:alpine
   stage: test
   script:
       - make test

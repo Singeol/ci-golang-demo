@@ -64,7 +64,9 @@ jobs:
       - name: Get push tag
         run: |
           echo ${GITHUB_REF#refs/tags/}
-          echo "TAG=$(echo ${GITHUB_REF#refs/tags/})" >> GITHUB_ENV 
+          # echo "TAG=$(echo ${GITHUB_REF#refs/tags/})" >> GITHUB_ENV 
+          echo "TAG=$(echo ${GITHUB_REF##*/})" >> GITHUB_ENV 
+          echo ${{ env.TAG }}
       - name: Print Tag
         run: echo ${{ env.TAG }}
       - name: Set up QEMU

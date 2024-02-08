@@ -43,7 +43,7 @@ jobs:
     needs: ["lint", "test"]
     runs-on: ubuntu-latest
     steps:
-      - run: echo ' ${{github.ref}}'
+      - run: echo 'Tag is ${{github.ref}}'
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3

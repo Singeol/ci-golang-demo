@@ -55,7 +55,7 @@ jobs:
       - name: checkout source code
         uses: actions/checkout@v4
       - name: Get Branch
-        run: echo "${{ github.event.base_ref }}"
+        run: echo "GIT_VER=${GITHUB_REF##*/}" >>  $GITHUB_ENV
       # -
       #   name: Set up QEMU
       #   uses: docker/setup-qemu-action@v3

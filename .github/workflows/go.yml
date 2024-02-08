@@ -45,6 +45,10 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
+      - name: Print hash
+        run: echo "The hash is $env:GITHUB_SHA."
+      - name: Print branch name
+        run: echo "The branch name is $env:GITHUB_REF."
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3

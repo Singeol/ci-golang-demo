@@ -62,7 +62,7 @@ jobs:
       - name: Get short SHA
         run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
       - name: Get push tag
-        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> GITHUB_ENV 
+        run: echo "TAG=$(echo $GITHUB_REF#refs/tags/)" >> GITHUB_ENV 
       - name: Print Tag
         run: echo ${{ env.TAG }}
       - name: Set up QEMU

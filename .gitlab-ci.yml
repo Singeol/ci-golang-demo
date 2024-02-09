@@ -33,6 +33,6 @@ build:
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_REGISTRY/singeol/ci-golang-demo:$CI_COMMIT_TAG .
-    # - docker tag $CI_REGISTRY/singeol/ci-golang-demo:$CI_COMMIT_TAG $CI_REGISTRY/singeol/ci-golang-demo:${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA:0:7}
+    - docker tag $CI_REGISTRY/singeol/ci-golang-demo:$CI_COMMIT_TAG $CI_REGISTRY/singeol/ci-golang-demo:${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA:0:7}
     - docker push $CI_REGISTRY/singeol/ci-golang-demo:$CI_COMMIT_TAG
     - docker push $CI_REGISTRY/singeol/ci-golang-demo:${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA:0:7}

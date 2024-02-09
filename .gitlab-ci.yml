@@ -30,3 +30,7 @@ build:
     - apk add --no-cache make
   script:
     - make build
+  artifacts:
+    paths:
+      - build/*
+  expire_in: 1 week

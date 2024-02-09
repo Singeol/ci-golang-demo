@@ -20,7 +20,18 @@ stages:
 #   script:
 #     - make test
 
-build:
+build-push:
+  services:
+    - docker:dind
+  stage: build
+  image: docker:latest
+  - if: $CI_COMMIT_TAG == null  
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/singeol/ci-golang-demo:${CI_COMMIT_SHA:0:7} .
+    - docker push $CI_REGISTRY/singeol/ci-golang-demo:${CI_COMMIT_SHA:0:7}
+
+build-tag:
   services:
     - docker:dind
   stage: build

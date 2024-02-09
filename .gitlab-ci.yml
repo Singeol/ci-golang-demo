@@ -2,6 +2,7 @@ stages:
     - lint
     - test
     - build
+    - push
 
 lint:
   image: golang:alpine
@@ -28,6 +29,16 @@ build:
   needs:
     - lint
     - test
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+$/ 
   script:
-    - docker build -t gobuild .
-    - docker run gobuild
+    - docker build -t app:$CI_COMMIT_TAG .
+    - docker tag app:$CI_COMMIT_TAG app:${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+
+push:
+  stage: push
+  needs: [build]
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker push app:$CI_COMMIT_TAG
+    - docker push app:${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}

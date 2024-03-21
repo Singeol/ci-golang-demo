@@ -67,7 +67,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha, event=branch
             type=ref, event=tag

@@ -81,8 +81,8 @@ jobs:
           push: true
           pull: true
           builder: ${{ steps.buildx.outputs.name }}
-          cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,oci-mediatypes=true,image-manifest=true
-          cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,oci-mediatypes=true,image-manifest=true
+          cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,image-manifest=true
+          cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,image-manifest=true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

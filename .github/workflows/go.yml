@@ -51,6 +51,12 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v4
+      - name: set AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.RUNNER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.RUNNER_SECRET_ACCESS_KEY }}
+          aws-region: ru-central1
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx
@@ -83,8 +89,8 @@ jobs:
           # cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
           # cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,oci-mediatypes=true,image-manifest=true
           # Cache to yandex s3 storage
-          cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
-          cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
+          cache-from: type=s3,bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
+          cache-to: type=s3,mode=max,bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

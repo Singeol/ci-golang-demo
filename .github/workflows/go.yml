@@ -82,7 +82,7 @@ jobs:
           pull: true
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
-          cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

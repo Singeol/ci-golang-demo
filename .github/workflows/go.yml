@@ -74,8 +74,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          cache-to: type=gha
-          cache-from: type=gha
+          cache-from: type=registry
+          cache-to: type=registry, mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

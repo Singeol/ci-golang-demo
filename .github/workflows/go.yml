@@ -4,7 +4,7 @@ on: [push]
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ci-golang-demo  # ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
 
@@ -74,8 +74,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
-          cache-to: type=registry,mode=max,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/ci-golang-demo:cache
+          cache-to: type=registry,mode=max,ref=${{ env.REGISTRY }}/ci-golang-demo:cache
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

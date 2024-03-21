@@ -73,9 +73,9 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: true
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/ci-golang-demo:cache
-          cache-to: type=registry,mode=max,ref=${{ env.REGISTRY }}/ci-golang-demo:cache
+          push: false
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,mode=max,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

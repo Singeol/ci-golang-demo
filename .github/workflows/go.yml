@@ -76,8 +76,9 @@ jobs:
           context: .
           file: ./Dockerfile
           provenance: false
-          push: true
+          push: false
           pull: true
+          load: true
           builder: ${{ steps.buildx.outputs.name }}
           # Cache to yandex container registry
           cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache

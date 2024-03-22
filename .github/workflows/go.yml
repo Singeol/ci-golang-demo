@@ -72,15 +72,15 @@ jobs:
             type=sha, event=branch
             type=ref, event=tag
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           provenance: false
           push: true
           pull: true
-          cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}
-          cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}
+          cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

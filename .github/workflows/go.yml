@@ -51,6 +51,10 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v4
+      - name: Set env
+        run: echo "AWS_ACCESS_KEY_ID=${{ secrets.RUNNER_ACCESS_KEY_ID }}" >> $GITHUB_ENV && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+      - name: Test
+        run: echo $GITHUB_SHA_SHORT
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx
@@ -81,11 +85,11 @@ jobs:
           load: true
           builder: ${{ steps.buildx.outputs.name }}
           # Cache to yandex container registry
-          cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
-          cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,oci-mediatypes=true,image-manifest=true
+          # cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          # cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,oci-mediatypes=true,image-manifest=true
           # Cache to yandex s3 storage
-          # cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},secret_access_key=${{ secrets.RUNNER_SECRET_ACCESS_KEY }},access_key_id=${{ secrets.RUNNER_ACCESS_KEY_ID }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
-          # cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},secret_access_key=${{ secrets.RUNNER_SECRET_ACCESS_KEY }},access_key_id=${{ secrets.RUNNER_ACCESS_KEY_ID }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
+          cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
+          cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

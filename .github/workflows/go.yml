@@ -54,7 +54,9 @@ jobs:
       - name: Set env
         run: |
           echo "AWS_ACCESS_KEY_ID=${{ secrets.RUNNER_ACCESS_KEY_ID }}" >> $GITHUB_ENV \
-            && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+            && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV \
+            && echo "AWS_ENDPOINT_URL=${{ vars.RUNNER_ENDPOINT }}" >> $GITHUB_ENV \
+            && echo "AWS_IGNORE_CONFIGURED_ENDPOINT_URLS=false" >> $GITHUB_ENV
       - name: Test
         run: echo $GITHUB_SHA_SHORT
       - name: Set up QEMU

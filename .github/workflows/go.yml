@@ -9,7 +9,7 @@ env:
 jobs:
 
   lint:
-    runs-on: arc-runner-set
+    runs-on: github-runner
     steps:
     - name: checkout source code
       uses: actions/checkout@v4

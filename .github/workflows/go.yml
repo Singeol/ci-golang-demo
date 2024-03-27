@@ -9,7 +9,7 @@ env:
 jobs:
 
   lint:
-    runs-on: self-hosted
+    runs-on: arc-runner-set
     steps:
     - name: checkout source code
       uses: actions/checkout@v4

@@ -8,42 +8,42 @@ env:
 
 jobs:
 
-  # lint:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: checkout source code
-  #     uses: actions/checkout@v4
+  lint:
+    runs-on: github-runner
+    steps:
+    - name: checkout source code
+      uses: actions/checkout@v4
 
-  #   - name: Set up Go
-  #     uses: actions/setup-go@v5
-  #     with:
-  #       go-version: '1.20'
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.20'
 
-  #   - name: Install golint
-  #     run: go install golang.org/x/lint/golint
+    - name: Install golint
+      run: go install golang.org/x/lint/golint
 
-  #   - name: Lint
-  #     id: lint
-  #     run: make lint
+    - name: Lint
+      id: lint
+      run: make lint
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: checkout source code
-  #     uses: actions/checkout@v4
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout source code
+      uses: actions/checkout@v4
 
-  #   - name: Set up Go
-  #     uses: actions/setup-go@v5
-  #     with:
-  #       go-version: '1.20'
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.20'
 
-  #   - name: Test
-  #     run: make test
+    - name: Test
+      run: make test
 
   
   build-and-push-image:
     if: github.event_name == 'push'
-    # needs: ["lint", "test"]
+    needs: ["lint", "test"]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -85,11 +85,11 @@ jobs:
           load: true
           builder: ${{ steps.buildx.outputs.name }}
           # Cache to yandex container registry
-          # cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
-          # cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,oci-mediatypes=true,image-manifest=true
+          cache-from: type=registry,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,mode=max,ref=${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:cache,oci-mediatypes=true,image-manifest=true
           # Cache to yandex s3 storage
-          cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
-          cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
+          # cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
+          # cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}, 
   

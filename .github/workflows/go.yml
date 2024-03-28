@@ -55,8 +55,6 @@ jobs:
         run: |
           echo "AWS_ACCESS_KEY_ID=${{ secrets.RUNNER_ACCESS_KEY_ID }}" >> $GITHUB_ENV \
             && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-      - name: Test
-        run: echo $GITHUB_SHA_SHORT
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx

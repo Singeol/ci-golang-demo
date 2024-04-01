@@ -9,7 +9,7 @@ env:
 jobs:
 
   lint:
-    runs-on: self-hosted
+    runs-on: github-runner
     steps:
     - name: checkout source code
       uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
       run: make lint
 
   test:
-    runs-on: self-hosted
+    runs-on: github-runner
     steps:
     - name: checkout source code
       uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
   build-and-push-image:
     if: github.event_name == 'push'
     needs: ["lint", "test"]
-    runs-on: self-hosted
+    runs-on: github-runner
     permissions:
       contents: read
       packages: write

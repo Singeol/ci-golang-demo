@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v4
-      - name: Set env
+      # - name: Set env
         # run: |
         #   echo "AWS_ACCESS_KEY_ID=${{ secrets.RUNNER_ACCESS_KEY_ID }}" >> $GITHUB_ENV \
         #     && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV

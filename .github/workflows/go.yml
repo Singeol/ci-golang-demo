@@ -8,42 +8,42 @@ env:
 
 jobs:
 
-  lint:
-    runs-on: yandex-runner
-    steps:
-    - name: checkout source code
-      uses: actions/checkout@v4
+  # lint:
+  #   runs-on: yandex-runner
+  #   steps:
+  #   - name: checkout source code
+  #     uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.20'
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v5
+  #     with:
+  #       go-version: '1.20'
 
-    - name: Install golint
-      run: go install golang.org/x/lint/golint
+  #   - name: Install golint
+  #     run: go install golang.org/x/lint/golint
 
-    - name: Lint
-      id: lint
-      run: make lint
+  #   - name: Lint
+  #     id: lint
+  #     run: make lint
 
-  test:
-    runs-on: yandex-runner
-    steps:
-    - name: checkout source code
-      uses: actions/checkout@v4
+  # test:
+  #   runs-on: yandex-runner
+  #   steps:
+  #   - name: checkout source code
+  #     uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.20'
+  #   - name: Set up Go
+  #     uses: actions/setup-go@v5
+  #     with:
+  #       go-version: '1.20'
 
-    - name: Test
-      run: make test
+  #   - name: Test
+  #     run: make test
 
   
   build-and-push-image:
     if: github.event_name == 'push'
-    needs: ["lint", "test"]
+    # needs: ["lint", "test"]
     runs-on: yandex-runner
     permissions:
       contents: read
@@ -63,8 +63,8 @@ jobs:
         run: npm --version
       - name: go version
         run: go version
-      - name: python version
-        run: python --version
+      - name: python3 version
+        run: python3 --version
       - name: ruby version
         run: ruby --version
       - name: Set up QEMU

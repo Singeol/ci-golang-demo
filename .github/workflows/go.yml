@@ -107,7 +107,7 @@ jobs:
         id: scan_container
         uses: anchore/scan-action@v2
         with:
-          image: ${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}
+          image: ${{ steps.meta.outputs.tags }}
           grype-version: 0.15.0
           severity-cutoff: critical
           fail-build: false

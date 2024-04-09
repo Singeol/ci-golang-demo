@@ -55,18 +55,18 @@ jobs:
         run: |
           echo "AWS_ACCESS_KEY_ID=${{ secrets.RUNNER_ACCESS_KEY_ID }}" >> $GITHUB_ENV \
             && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-      # - name: yarn version
-      #   run: yarn --version
-      # - name: node version
-      #   run: node --version
-      # - name: npm version
-      #   run: npm --version
-      # - name: go version
-      #   run: go version
-      # - name: python3 version
-      #   run: python3 --version
-      # - name: ruby version
-      #   run: ruby --version
+      - name: yarn version
+        run: yarn --version
+      - name: node version
+        run: node --version
+      - name: npm version
+        run: npm --version
+      - name: go version
+        run: go version
+      - name: python3 version
+        run: python3 --version
+      - name: ruby version
+        run: ruby --version
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx
@@ -91,7 +91,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          provenance: false
+          # provenance: false
           push: false
           pull: true
           load: true
@@ -103,14 +103,5 @@ jobs:
           # cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
           # cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
           tags: ${{ steps.meta.outputs.tags }}
-      - name: Scan image
-        id: scan_container
-        uses: anchore/scan-action@v2
-        with:
-          image: ${{ steps.meta.outputs.tags }}
-          grype-version: 0.15.0
-          severity-cutoff: critical
-          fail-build: false
-          acs-report-enable: true
-      
+          labels: ${{ steps.meta.outputs.labels }}, 
   

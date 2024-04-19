@@ -57,6 +57,10 @@ jobs:
             && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+        id: setup
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx

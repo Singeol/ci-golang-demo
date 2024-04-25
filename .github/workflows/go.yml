@@ -55,12 +55,8 @@ jobs:
         run: |
           echo "AWS_ACCESS_KEY_ID=${{ secrets.RUNNER_ACCESS_KEY_ID }}" >> $GITHUB_ENV \
             && echo "AWS_SECRET_ACCESS_KEY=${{ secrets.RUNNER_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        id: setup
-        with:
-          ruby-version: "3.1.4"
-          bundler-cache: true
+      - name: Setup Chromedriver
+        uses: nanasess/setup-chromedriver@v2.1.2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker buildx

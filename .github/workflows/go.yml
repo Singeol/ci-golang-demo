@@ -79,13 +79,11 @@ jobs:
         run: |
           if [ -z "${{ steps.meta.outputs.tags }}" ]; then
             TAG="temp-${GITHUB_SHA::8}-$(date +%s)"
-          else
-            TAG="${{ steps.meta.outputs.tags }}"
+            IMAGE="${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}"
+            echo "tagged_image=$IMAGE:$TAG" >> $GITHUB_OUTPUT
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+            echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
           fi
-          IMAGE="${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}"
-          echo "tagged_image=$IMAGE:$TAG" >> $GITHUB_OUTPUT
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:

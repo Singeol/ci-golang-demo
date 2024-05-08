@@ -81,7 +81,11 @@ jobs:
       - name: Set tag 
         id: set_tag
         run: |
-          test -n ${{ steps.meta.outputs.tags }} || TAG=temp-${GITHUB_SHA::8}-$(date +%s)
+          if [ -z "${{ steps.meta.outputs.tags }}" ]; then
+            TAG="temp-${GITHUB_SHA::8}-$(date +%s)"
+          else
+            TAG="${{ steps.meta.outputs.tags }}"
+          fi
           IMAGE="${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}"
           echo "tagged_image=$IMAGE:$TAG" >> $GITHUB_OUTPUT
           echo "tag=$TAG" >> $GITHUB_OUTPUT

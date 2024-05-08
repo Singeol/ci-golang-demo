@@ -102,7 +102,7 @@ jobs:
           # Cache to yandex s3 storage
           # cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
           # cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
-          tags: ${{ steps.meta.outputs.tags }}, ${{ steps.set_tag.outputs.tagged_image }}
+          tags: ${{ steps.meta.outputs.tags }}, ${{ steps.set_tag.outputs.tag }}
           labels: ${{ steps.meta.outputs.labels }}
       # - name: Scan image
       #   id: scan_container

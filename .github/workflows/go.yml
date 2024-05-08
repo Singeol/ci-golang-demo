@@ -77,6 +77,15 @@ jobs:
             type=raw,value=staging-{{sha}}-{{date 'YYYYMMDDHHmmss'}},enable=${{ github.ref == 'refs/heads/develop' }}
             type=raw,value=qa-{{sha}}-{{date 'YYYYMMDDHHmmss'}},enable=${{ startsWith(github.ref, 'refs/heads/release/v') || github.ref == 'refs/heads/master' }}
             type=raw,value={{tag}},event=tag
+      # If none of above set default tag
+      - name: Set tag 
+        id: set_tag
+        run: |
+          test -n ${{ steps.meta.outputs.tags }} || TAG=temp-${GITHUB_SHA::8}-$(date +%s)
+          IMAGE="${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}"
+          echo "tagged_image=$IMAGE:$TAG" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -93,7 +102,7 @@ jobs:
           # Cache to yandex s3 storage
           # cache-from: type=s3,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
           # cache-to: type=s3,mode=max,region=${{ vars.RUNNER_REGION }},bucket=${{ vars.RUNNER_BUCKET_NAME }},endpoint_url=${{ vars.RUNNER_ENDPOINT }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}, ${{ steps.set_tag.outputs.tagged_image }}
           labels: ${{ steps.meta.outputs.labels }}
       # - name: Scan image
       #   id: scan_container

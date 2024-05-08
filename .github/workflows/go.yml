@@ -72,7 +72,7 @@ jobs:
           tags: |
             type=raw,value=staging-{{sha}}-{{date 'YYYYMMDDHHmmss'}},enable=${{ github.ref == 'refs/heads/develop' }}
             type=raw,value=qa-{{sha}}-{{date 'YYYYMMDDHHmmss'}},enable=${{ startsWith(github.ref, 'refs/heads/release/v') || github.ref == 'refs/heads/master' }}
-            type=raw,value={{tag}},event=tag
+            type=raw,value=v{{tag}},event=tag
       # If none of above set default tag
       - name: Set tag 
         id: set_tag
@@ -82,7 +82,6 @@ jobs:
             IMAGE="${{ secrets.YANDEX_REGISTRY }}/${{ env.IMAGE_NAME }}"
             echo "tagged_image=$IMAGE:$TAG" >> $GITHUB_OUTPUT
             echo "tag=$TAG" >> $GITHUB_OUTPUT
-            echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
           fi
       - name: Build and push Docker image
         uses: docker/build-push-action@v5

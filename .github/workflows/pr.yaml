@@ -1,4 +1,4 @@
-name: Go
+name: Lint & Test
 
 on: pull_request
 
@@ -9,7 +9,7 @@ env:
 jobs:
 
   lint:
-    runs-on: yandex-runner
+    runs-on: ubuntu-latest
     steps:
     - name: checkout source code
       uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
       run: make lint
 
   test:
-    runs-on: yandex-runner
+    runs-on: ubuntu-latest
     steps:
     - name: checkout source code
       uses: actions/checkout@v4
